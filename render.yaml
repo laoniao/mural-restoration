@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: mural-restoration
+    runtime: static
+    repo: https://github.com/laoniao/mural-restoration
+    branch: main
+    autoDeploy: true
+    # 纯静态站点，无构建步骤；入口 index.html 在仓库根目录
+    staticPublishPath: .
+    headers:
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /index.html
+        name: Cache-Control
+        value: no-cache
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
